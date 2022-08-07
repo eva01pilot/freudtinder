@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { UserContext } from './lib/context';
+import { useGetUser } from './hooks/useGetUser';
+import { auth } from './lib/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useEffect, useState } from 'react';
+import Router from './Router';
 
 function App() {
+  const [user] = useAuthState(auth);
+  const userdata = useGetUser(auth.currentUser?.uid)
+  const [username, setUsername] = useState('')
+
+  useEffect(()=>{
+    setUsername(userdata?.username)
+  },[userdata?.username])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{user, username:null}}>
+      <Router/>
+    </UserContext.Provider>
   );
 }
 

@@ -1,0 +1,11 @@
+form{
+    display: flex;
+    flex-direction: column;
+}
+form > * > *{
+    margin-bottom: 1.5rem;
+}
+.gender>*{
+    margin-bottom: .5rem;
+
+}

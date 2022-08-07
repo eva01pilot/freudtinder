@@ -1,0 +1,24 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    background-image: url('../assets/zizekmarx.jpg');
+}
+.formpaper{
+    width:27.75rem;
+    height:37.5rem;
+    padding: 2rem;
+}
+.logo{
+    width: 5rem;
+}
+.logoandcaption{
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+}
