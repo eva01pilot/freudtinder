@@ -18,3 +18,6 @@ export const useGetUser = (id:string|undefined) =>{
 
     return user
 }
+
+
+    

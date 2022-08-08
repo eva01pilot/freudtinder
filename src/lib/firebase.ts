@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
+import { arrayUnion, arrayRemove } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCKLeXRa4pe_nLKmxdlWjYn9gJP0uAcNkw",
@@ -17,6 +18,7 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
+export const STATE_CHANGED = 'state_changed';
 export const firestore = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);

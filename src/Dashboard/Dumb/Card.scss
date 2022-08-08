@@ -1,0 +1,20 @@
+.cardimg{
+    width: 20rem !important;
+    height: 25rem;
+    object-fit: cover;
+}
+.actions{
+    display: grid !important;
+    width: 80%;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 1rem;
+}
+.content{
+    align-self: flex-start;
+}

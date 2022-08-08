@@ -16,7 +16,7 @@ function App() {
   },[userdata?.username])
 
   return (
-    <UserContext.Provider value={{user, username:null}}>
+    <UserContext.Provider value={{user, username}}>
       <Router/>
     </UserContext.Provider>
   );

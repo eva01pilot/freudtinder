@@ -1,0 +1,15 @@
+.chatrowcontainer{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    flex-shrink: 2;
+    flex-basis: auto;
+    flex-grow: 0;
+}
+.menu{
+    width: 100vw;
+    box-sizing: border-box;
+    align-self: flex-start;
+    background-color: rgb(198, 204, 204);
+    padding: 1rem;
+}
