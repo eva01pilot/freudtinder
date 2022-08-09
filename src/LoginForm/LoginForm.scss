@@ -22,3 +22,20 @@ main{
     align-items: center;
     margin-bottom: 1rem;
 }
+@media screen and (max-width: 767px) {
+    .formpaper{
+        width:80vw;
+        height:40rem;
+        padding: 1rem;
+    }
+    .logo{
+        width: 3rem;
+    }
+    form{
+        padding: 0rem;
+    }
+    .logoandcaption{
+        margin-bottom: .5rem;
+        font-size: 1rem !important;
+    }
+}

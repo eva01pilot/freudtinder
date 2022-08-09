@@ -12,13 +12,18 @@ interface dboardprops{
   [key: string]: any;
 }
 
-const DashboardMobile:FC<dboardprops> = ({users, onClick }) => {
+const DashboardMobile:FC<dboardprops> = ({users, onClick, chats }) => {
   const [viewmode, setViewmode] = useState('cards')
   return (
     <main className='view'>
         <div className='container'>
-          {viewmode === 'cards' ? users.map((user:any) => <Datecard onClick={onClick} user={user} key={user.uid} access={user.uid} />) : 
-          viewmode === 'chat' ? <Chats/> 
+          {viewmode === 'cards' ? 
+          <div className="cards">
+            {users.map((user:any) => <Datecard onClick={onClick} user={user} key={user.uid} access={user.uid} />)}
+          </div>
+          
+           : 
+          viewmode === 'chat' ? <Chats  chats={chats}/> 
           : <Profile/>
           }
         </div>

@@ -1,22 +1,30 @@
 import './App.css';
 import { UserContext } from './lib/context';
-import { useGetUser } from './hooks/useGetUser';
-import { auth } from './lib/firebase';
+import { auth, firestore } from './lib/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Router from './Router';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 function App() {
-  const [user] = useAuthState(auth);
-  const userdata = useGetUser(auth.currentUser?.uid)
-  const [username, setUsername] = useState('')
+  const [user]:any = useAuthState(auth)
+  const [username, setUsername]:any = useState(null)
+  useLayoutEffect(()=>{
+    let unsubscribe
+    if (user){
+      const ref = doc(firestore, `users/${auth?.currentUser?.uid}`)
+      unsubscribe =  onSnapshot(ref,(doc)=>{
+        setUsername(doc.data()?.username)
+      })
+    } else {
+      setUsername(null)
+    }
+    return unsubscribe
+  },[user])
 
-  useEffect(()=>{
-    setUsername(userdata?.username)
-  },[userdata?.username])
 
   return (
-    <UserContext.Provider value={{user, username}}>
+    <UserContext.Provider value={{user:user, username:username}} >
       <Router/>
     </UserContext.Provider>
   );

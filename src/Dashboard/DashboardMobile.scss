@@ -22,3 +22,9 @@
     flex-shrink: 0;
     width: 100vw;
 }
+.cards{
+    display: grid;
+}
+.cards>*{
+    grid-area: 1/1;
+}

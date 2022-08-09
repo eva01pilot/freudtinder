@@ -1,15 +1,22 @@
 import {  Typography } from '@mui/material'
-
+import { FC } from 'react'
 import './Chatrow.scss'
-const Chatrow = () => {
-  return (
-    <div className='chatrow'>
-        <div className="avatarcontainer">
-          <img className='avatar'  alt="Remy Sharp" src="https://firebasestorage.googleapis.com/v0/b/freudtinder.appspot.com/o/uploads%2FMVVMuMbkEtRI82drMordrUtLid23%2F1659901408828.jpeg?alt=media&token=2beee072-22ba-43bf-8f3f-7ed6a6e12a2f" />
-        </div>
-        <Typography className='chatname' variant="h4">Илья</Typography>
-    </div>
-  )
+
+interface chatrowprops{
+  user: any
+  onClick?:any
+  [key: string]: any
 }
 
-export default Chatrow
+const Chatrow:FC<chatrowprops> = ({user, onClick}) => {
+  return (
+    <div className='chatrow' onClick={onClick}>
+        <div className="avatarcontainer">
+          <img className='avatar' alt='' src={user.avatar} />
+        </div>
+        <Typography className='chatname' variant="h4">{user.username}</Typography>
+    </div>
+  )
+} 
+
+export default Chatrow 

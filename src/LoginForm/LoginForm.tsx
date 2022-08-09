@@ -1,24 +1,23 @@
 import { Paper, Typography } from '@mui/material';
 import { doc, setDoc } from 'firebase/firestore';
-import React, { FC, useEffect, useState } from 'react'
+import  { FC, useState } from 'react'
 import Form from '../Dumb/Form';
 import { auth, firestore, STATE_CHANGED, storage } from '../lib/firebase';
 import './LoginForm.scss'
 
 import freud from '../assets/freud.svg'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { useMediaQuery } from 'react-responsive';
+
 
 const LoginForm:FC = () => {
-  
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   const [username, setUsername] = useState('')
   const [userage, setUserage] = useState(0)
   const [usergender, setUsergender] = useState('')
   const [userdescription, setUserdescription] = useState('')
   const [downloadURL, setDownloadURL] = useState('')
-  useEffect(()=>{
-    console.log(username)
-    console.log(usergender)
-  })
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const userRef = doc(firestore,`users/${auth.currentUser?.uid}`)
@@ -73,13 +72,15 @@ const uploadFile = async (e:any)=>{
       <Paper className='formpaper' elevation={10}>
         <div className="logoandcaption">
           <img className='logo' src={freud} alt=''/>
-          <Typography variant='h3'>
+          <Typography variant={!isMobile ? 'h3' :  'h4'}>
             Freud`Tinder
           </Typography>
         </div>
-        <Form onSubmit={handleSubmit} onChange={handleChange} username={username} userage={userage} usergender={usergender} userdescription={userdescription} uploadFile={uploadFile} />   
+        <Form onSubmit={handleSubmit} onChange={handleChange} avatar={downloadURL} username={username} userage={userage} usergender={usergender} userdescription={userdescription} uploadFile={uploadFile} />   
       </Paper>  
+      {downloadURL}
     </main>
+
   )
 }
 

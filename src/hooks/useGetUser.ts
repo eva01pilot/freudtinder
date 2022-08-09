@@ -1,10 +1,10 @@
 import { doc, getDoc } from "firebase/firestore"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { firestore } from "../lib/firebase"
 
 
 export const useGetUser = (id:string|undefined) =>{
-    const [user,setUser] = useState<any>({})
+    const [userr,setUser] = useState<any>({})
 
     useEffect(()=>{
         const userRef = doc(firestore, `users/${id}`)
@@ -15,8 +15,8 @@ export const useGetUser = (id:string|undefined) =>{
         getUser().then(user=>setUser(user))
         
     },[id])
-
-    return user
+    const updateUser = useCallback((user:any)=>setUser(user),[])
+    return {userr, updateUser}
 }
 
 
