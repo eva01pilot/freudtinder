@@ -1,0 +1,16 @@
+.message{
+    max-width: 50vw;
+    width: fit-content;
+    height: fit-content;
+    word-wrap: break-word;
+    background-color: rgb(195, 235, 236);
+    padding: 1rem;
+    border-radius: 1rem;
+    word-wrap:break-word;
+    word-break: break-all;
+    word-spacing: .5rem;
+    
+    //text-align: justify;
+    //text-justify:distribute;
+    //word-break: break-all;
+}

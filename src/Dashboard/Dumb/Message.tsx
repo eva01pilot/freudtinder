@@ -1,13 +1,13 @@
-import { Chip } from '@mui/material'
-import React, { FC } from 'react'
+import  { FC } from 'react'
 import { auth } from '../../lib/firebase'
-
+import './Message.scss'
 const Message:FC<any> = ({content, sender}) => {
   return (
     <>
-    <div style={sender!==auth?.currentUser?.uid ? {alignSelf: 'flex-start'}:{alignSelf: 'flex-end'}}
-    >
-        <Chip variant={sender===auth?.currentUser?.uid ? 'filled' : 'outlined'} label={content}/>
+    <div className='message' style={sender!==auth?.currentUser?.uid ? 
+      {alignSelf: 'flex-start', marginLeft: '2rem' ,textAlign: 'start'}
+      :{alignSelf: 'flex-end', marginRight: '2rem',textAlign: 'end'}}>
+        {content}
     </div>
     </>
   )

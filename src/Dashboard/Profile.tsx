@@ -7,7 +7,7 @@ import { auth, STATE_CHANGED, storage } from '../lib/firebase'
 import Datecard from './Dumb/Card'
 import './Profile.scss'
 
-const Profile = () => {
+const Profile = ({handleDragStart}:any) => {
   const [previewShown, setPreviewShown] = useState(false)
   const {userr, updateUser} = useGetUser(auth?.currentUser?.uid)
   const handleChange = (event: any) => {
@@ -70,7 +70,7 @@ const Profile = () => {
         uploadFile={uploadFile}
         />
          : 
-        <Datecard user={userr}/>
+        <Datecard handleDragStart={handleDragStart} user={userr}/>
       }
       </div>
       <div className="footerwrapper">

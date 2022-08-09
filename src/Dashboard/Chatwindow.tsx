@@ -14,6 +14,7 @@ const Chatwindow:FC<any> = ({user, onClick}) => {
     const handleSubmitMessage = (e:any) =>{
         e.preventDefault()
         sendMessage(user.uid,input)
+        setInput('')
     }
   return (
     <>   

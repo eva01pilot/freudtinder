@@ -9,7 +9,7 @@ export const useGetAllUsers = (id:string|undefined) =>{
             const ref=collection(firestore, 'users')
             const q = query(ref, where('uid','!=',id))
             const querySnapshot = await getDocs(q);
-            const users = querySnapshot.docs.map((doc)=>{
+            const users = querySnapshot.docs.filter(doc=>doc.data().matches.indexOf(id)===-1).map((doc)=>{
                 return doc.data()
             })
             setUserArray(users)
@@ -18,7 +18,7 @@ export const useGetAllUsers = (id:string|undefined) =>{
         getUsers()
         
 
-},[])
+},[id])
 const updateUserArray = useCallback((userArray:any)=>setUserArray(userArray),[])
 return {userArray, updateUserArray}
 }
