@@ -9,7 +9,6 @@ export const useGetAllMessages = (id:string|undefined) =>{
         prevMessagesRef.current = msgArray
         const chatRef1 = collection(firestore,`chats/${id}-X-${auth?.currentUser?.uid}/messages`)
         const chatRef2 = collection(firestore, `chats/${auth?.currentUser?.uid}-X-${id}/messages`)
-        console.log(chatRef2)
         const q1 = query(chatRef1)
         const q2 = query(chatRef2)
         const unsub1 = onSnapshot(q1, (snapshot)=>{ 

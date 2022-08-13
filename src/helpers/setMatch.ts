@@ -10,6 +10,5 @@ export const setMatch = (uid:string) =>{
     updateDoc(targetUser,{
         matches:arrayUnion(auth?.currentUser?.uid)
     })
-    console.log(targetUser,authUser)
 
 }

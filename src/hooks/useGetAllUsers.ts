@@ -13,7 +13,6 @@ export const useGetAllUsers = (id:string|undefined) =>{
                 return doc.data()
             })
             setUserArray(users)
-            console.log('yass')
         }
         getUsers()
         

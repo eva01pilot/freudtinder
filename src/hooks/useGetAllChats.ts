@@ -17,7 +17,6 @@ export const useGetAllChats = () =>{
                 })
                 
             });
-            uid && console.log(uid)
             let users:Array<any>=[]
             uid && uid.forEach((uid)=>{
                 const tref=doc(firestore, `users/${uid}`)
@@ -26,7 +25,6 @@ export const useGetAllChats = () =>{
                     users.push(doc.data())
                 })
             })
-            console.log(users)
             setChatsArray(users)
         })
 
