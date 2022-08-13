@@ -1,5 +1,5 @@
 import { Divider, TextareaAutosize } from "@mui/material"
-import { FC, useState } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import Chatrow from "./Dumb/Chatrow"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './Chatwindow.scss'
@@ -7,8 +7,12 @@ import { useGetAllMessages } from "../hooks/useGetAllMessages";
 import Message from "./Dumb/Message";
 import { sendMessage } from "../helpers/sendMessage";
 import SendIcon from '@mui/icons-material/Send';
+import { useMediaQuery } from 'react-responsive'
+
 
 const Chatwindow:FC<any> = ({user, onClick}) => {
+    const isMobile = useMediaQuery({ maxWidth: 767 })
+    const messagesEndRef =  useRef<HTMLDivElement>(null)
     const messages = useGetAllMessages(user.uid)
     const [input, setInput] = useState('')
     const handleSubmitMessage = (e:any) =>{
@@ -16,6 +20,11 @@ const Chatwindow:FC<any> = ({user, onClick}) => {
         sendMessage(user.uid,input)
         setInput('')
     }
+    useEffect(()=>{
+        if(messagesEndRef.current){
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+        }
+    })
   return (
     <>   
     <section className='bg-dark d-flex-row'>
@@ -27,10 +36,12 @@ const Chatwindow:FC<any> = ({user, onClick}) => {
     </section>
     <section className='d-flex-col'>
         {messages.map(message => <Message content={message.text} sender={message.sender}/>)}
+        <div ref={messagesEndRef}/>
     </section>
+    
     <section className='formfooter'>
     <form onSubmit={handleSubmitMessage} className='msgform'>
-        <TextareaAutosize maxRows={4}  className='textarea' value={input} onChange={(e:any)=>{setInput(e.target.value);console.log(input)}} required/>  
+        <TextareaAutosize maxRows={4}  className={isMobile ?'textarea' :'textareadesk'} value={input} onChange={(e:any)=>{setInput(e.target.value);console.log(input)}} required/>  
         <button type="submit" className='submitmsg'> <SendIcon/> </button>
     </form>
     </section>

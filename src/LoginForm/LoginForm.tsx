@@ -55,7 +55,6 @@ const LoginForm:FC = () => {
 const uploadFile = async (e:any)=>{
   const file = Array.from(e.target.files)[0]
   const ext = (file as any).type.split('/')[1]
-  console.log(file)
   const fileRef = ref(storage, `uploads/${auth?.currentUser?.uid}/${Date.now()}.${ext}`)
   const task = uploadBytesResumable(fileRef, file as any)
 
@@ -78,7 +77,6 @@ const uploadFile = async (e:any)=>{
         </div>
         <Form onSubmit={handleSubmit} onChange={handleChange} avatar={downloadURL} username={username} userage={userage} usergender={usergender} userdescription={userdescription} uploadFile={uploadFile} />   
       </Paper>  
-      {downloadURL}
     </main>
 
   )

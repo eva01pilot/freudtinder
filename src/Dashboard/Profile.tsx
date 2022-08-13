@@ -1,13 +1,16 @@
 import { Typography } from '@mui/material'
+import { doc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import FormEdit from '../Dumb/Formedit'
 import { useGetUser } from '../hooks/useGetUser'
-import { auth, STATE_CHANGED, storage } from '../lib/firebase'
+import { auth, firestore, STATE_CHANGED, storage } from '../lib/firebase'
 import Datecard from './Dumb/Card'
 import './Profile.scss'
 
 const Profile = ({handleDragStart}:any) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   const [previewShown, setPreviewShown] = useState(false)
   const {userr, updateUser} = useGetUser(auth?.currentUser?.uid)
   const handleChange = (event: any) => {
@@ -36,10 +39,10 @@ const Profile = ({handleDragStart}:any) => {
       }
     }
     }
+    
     const uploadFile = async (e:any)=>{
       const file = Array.from(e.target.files)[0]
       const ext = (file as any).type.split('/')[1]
-      console.log(file)
       const fileRef = ref(storage, `uploads/${auth?.currentUser?.uid}/${Date.now()}.${ext}`)
       const task = uploadBytesResumable(fileRef, file as any)
     
@@ -54,12 +57,23 @@ const Profile = ({handleDragStart}:any) => {
           });
       });
     }
+    const handleSubmit = (event: any) => {
+      event.preventDefault();
+      const userRef = doc(firestore,`users/${auth.currentUser?.uid}`)
+      updateDoc(userRef,{
+        uid: auth.currentUser?.uid,
+        username : userr.username,
+        userage: userr.userage,
+        userdescription: userr.userdescription,
+        avatar:userr.avatar,
+      })
+    }
   return (
-    <div className='view'>
+    <>
       <div className="headingwrapper">
         <Typography variant='h5' sx={{marginBottom:'1rem'}}>Ваша карточка</Typography>
       </div>
-      <div className="bodywrapper">
+    {isMobile ? <div className="bodywrapper">
         {previewShown ? <FormEdit 
         userage={userr.userage} 
         username={userr.username} 
@@ -68,11 +82,28 @@ const Profile = ({handleDragStart}:any) => {
         avatar={userr.avatar}
         onChange={handleChange}
         uploadFile={uploadFile}
+        onSubmit={handleSubmit}
         />
          : 
         <Datecard handleDragStart={handleDragStart} user={userr}/>
       }
-      </div>
+      </div> :
+      <div className="bodywrapper"> 
+      <FormEdit 
+        userage={userr.userage} 
+        username={userr.username} 
+        usergender={userr.usergender} 
+        userdescription={userr.userdescription} 
+        avatar={userr.avatar}
+        onChange={handleChange}
+        uploadFile={uploadFile}
+        onSubmit={handleSubmit}
+        /> 
+        <Datecard handleDragStart={handleDragStart} user={userr}/>
+        </div>
+        }
+      
+      {isMobile &&
       <div className="footerwrapper">
         <button onClick={()=>setPreviewShown(!previewShown)}>
           <>
@@ -80,7 +111,8 @@ const Profile = ({handleDragStart}:any) => {
           </>
         </button>
       </div>
-    </div>
+      }
+      </>
   )
 }
 

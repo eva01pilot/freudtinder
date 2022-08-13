@@ -7,6 +7,7 @@ import { FC, useState } from 'react';
 import Datecard from './Dumb/Card';
 import Chats from './Chats';
 import Profile from './Profile';
+import { AnimatePresence } from 'framer-motion';
 
 interface dboardprops{
   [key: string]: any;
@@ -19,7 +20,9 @@ const DashboardMobile:FC<dboardprops> = ({users, onClick, chats, handleDragStart
         <div className='container'>
           {viewmode === 'cards' ? 
           <div className="cards">
+            <AnimatePresence>
             {users.map((user:any) => <Datecard handleDragEnd={handleDragEnd} handleDragStart={handleDragStart} onClick={onClick} user={user} key={user.uid} access={user.uid} />)}
+            </AnimatePresence>
           </div>
           
            : 

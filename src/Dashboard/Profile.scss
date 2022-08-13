@@ -1,17 +1,18 @@
 .headingwrapper{
-    flex-shrink: 0;
-    flex-grow: 0;
-    display: flex;
+    position: sticky;
+    top: 0.3rem;
     align-items: center;
     flex-basis: 4rem;
     margin: 0%;
 }
 .bodywrapper{
-    flex-shrink: 1;
-    flex-grow: 1;
     display: flex;
     align-items: center;
 }
+.bodywrapper>form{
+    margin-right: 3rem;
+}
 .footerwrapper{
-    flex-shrink: 0;
+    position: sticky;
+    bottom: 0.3rem;
 }

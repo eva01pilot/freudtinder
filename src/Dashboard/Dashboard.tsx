@@ -7,6 +7,7 @@ import { setMatch } from '../helpers/setMatch'
 import { useGetAllChats } from '../hooks/useGetAllChats'
 import { useGetAllUsers } from '../hooks/useGetAllUsers'
 import { auth } from '../lib/firebase'
+import DashboardDesktop from './DashboardDesktop'
 import DashboardMobile from './DashboardMobile'
 
 const Dashboard:FC = () => {
@@ -14,6 +15,7 @@ const Dashboard:FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 })
   const {chatsArray} = useGetAllChats()
   const [uid, setUid] = useState('')
+  const [offx, setOffx] = useState(0)
 
   const handleClick = (e:any) => {
     const uid = e.currentTarget.getAttribute('access')
@@ -21,40 +23,42 @@ const Dashboard:FC = () => {
       uid && setLikes(uid)
       const getLikes = async() =>{
         const user = await getUserLikes(uid)
-        console.log(user?.likes)
         user?.likes && user.likes.indexOf(auth?.currentUser?.uid)!==-1 && setMatch(uid) 
         user?.likes && user.likes.indexOf(auth?.currentUser?.uid)!==-1 && initChat(uid) 
-        console.log('queen')
       }
       getLikes() 
       let userscopy = [...userArray]
       userscopy = userscopy.filter(user => user.uid!==e.currentTarget.getAttribute('access'))
       updateUserArray(userscopy)
     }
-    console.log(2)
+    if(e.target.value==='dislike'){ 
+      let userscopy = [...userArray]
+      userscopy = userscopy.filter(user => user.uid!==e.currentTarget.getAttribute('access'))
+      updateUserArray(userscopy)
+    }
+    
   }
   const handleDragStart = (e:any,i:any) => {
     console.log(e.target.parentNode.getAttribute('access'));
     const uid = e.target.parentNode.getAttribute('access')
     setUid(uid)
+    setOffx(i.point.x)
   }
   const handleDragEnd = (e:any,i:any) => {
-    console.log(1)
-    if(i.point.x>300){
+    console.log(i.point.x)
+    if(i.point.x-offx > 200){
       uid && setLikes(uid)
       const getLikes = async() =>{
         const user = await getUserLikes(uid)
-        console.log(user?.likes)
         user?.likes && user.likes.indexOf(auth?.currentUser?.uid)!==-1 && setMatch(uid) 
         user?.likes && user.likes.indexOf(auth?.currentUser?.uid)!==-1 && initChat(uid) 
-        console.log('yass')
       }
       getLikes() 
       let userscopy = [...userArray]
       userscopy = userscopy.filter(user => user.uid!==uid)
       updateUserArray(userscopy)
     } 
-    if (i.point.x<100){
+    if (offx-i.point.x > 200){
       let userscopy = [...userArray]
       userscopy = userscopy.filter(user => user.uid!==uid)
       updateUserArray(userscopy)
@@ -62,12 +66,11 @@ const Dashboard:FC = () => {
   }
   if(isMobile){
     return(
-      <DashboardMobile chats={chatsArray} users={userArray} onClick={handleClick} handleDragStart={handleDragStart} handleDragEnd={handleDragEnd}/>
+      <DashboardMobile  chats={chatsArray} users={userArray} onClick={handleClick} handleDragStart={handleDragStart} handleDragEnd={handleDragEnd}/>
     )}
     else {
       return(
-        <></>
-      //<DashboardDesktop><Datecard/></DashboardDesktop>
+      <DashboardDesktop  chats={chatsArray} users={userArray} onClick={handleClick} handleDragStart={handleDragStart} handleDragEnd={handleDragEnd} />
     )}
   }
 

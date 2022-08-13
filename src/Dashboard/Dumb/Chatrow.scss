@@ -5,7 +5,19 @@
     width: 100vw;
     height: 5rem;
     align-items: center;
+    background-color: rgb(58, 77, 77);
+    color: white;
     
+}
+.chatrowdesk{
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    box-sizing: border-box;
+    width: 30vw;
+    height: 5rem;
+    align-items: center;
+    background-color: rgb(58, 77, 77);
 }
 .avatar{
     box-sizing: border-box;

@@ -1,5 +1,5 @@
 .chatorrowcontainer{
-    width: 100%;
+    width: 100vw;
     height: 100%;
     overflow-y: scroll;
     flex-shrink: 2;
@@ -9,7 +9,24 @@
     flex-direction: column;
 }
 .menu{
-    width: 100vw;
+    width: 100%;
+    box-sizing: border-box;
+    align-self: flex-start;
+    background-color: rgb(198, 204, 204);
+    padding: 1rem;
+}
+.chatorrowcontainerdesk{
+    width: 30vw;
+    height:fit-content;
+    overflow-y: scroll;
+    flex-shrink: 2;
+    flex-basis: auto;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+}
+.menudesk{
+    width: 30vw;
     box-sizing: border-box;
     align-self: flex-start;
     background-color: rgb(198, 204, 204);

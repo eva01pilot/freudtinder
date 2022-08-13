@@ -23,6 +23,8 @@
     width: 100vw;
 }
 .cards{
+    width: fit-content;
+    height: fit-content;
     display: grid;
 }
 .cards>*{

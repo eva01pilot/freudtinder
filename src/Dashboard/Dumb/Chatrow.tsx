@@ -1,6 +1,7 @@
 import {  Typography } from '@mui/material'
 import { FC } from 'react'
 import './Chatrow.scss'
+import { useMediaQuery } from 'react-responsive'
 
 interface chatrowprops{
   user: any
@@ -9,8 +10,9 @@ interface chatrowprops{
 }
 
 const Chatrow:FC<chatrowprops> = ({user, onClick}) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   return (
-    <div className='chatrow' onClick={onClick}>
+    <div className={isMobile ? 'chatrow' :'chatrowdesk'} onClick={onClick}>
         <div className="avatarcontainer">
           <img className='avatar' alt='' src={user.avatar} />
         </div>
