@@ -24,7 +24,7 @@ function App() {
 
 
   return (
-    <UserContext.Provider value={{user, username}} >
+    <UserContext.Provider value={{user:null, username}} >
       <Router/>
     </UserContext.Provider>
   );
